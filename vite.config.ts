@@ -16,7 +16,7 @@ export default defineConfig({
         short_name: 'Rückgeldrechner',
         background_color: '#ffffff',
         theme_color: '#ffffff',
-        start_url: `${env.VITE_APP_DEV}?standalone=true`,
+        start_url: `https://change-calc.azurewebsites.net/?standalone=true`,
         icons: [
           {
             src: 'pwa-192x192.png',
