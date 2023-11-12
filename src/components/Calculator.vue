@@ -1,34 +1,33 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { MATH_OPERATORS, OPERATORS } from '@/constants'
+import { reactive, ref } from 'vue';
+import { MATH_OPERATORS, OPERATORS } from 'src/components/constants';
 
-const MAIN_OPERATOR = 0
+const MAIN_OPERATOR = 0;
 
-const state = reactive({ number: '', expression: '', total: 0 })
-const difference = ref(0)
+const state = reactive({ number: '', expression: '', total: 0 });
+const difference = ref(0);
 
 function addOperation(operator: number | string): void {
-  state.expression = state.expression + String(operator)
+  state.expression = state.expression + String(operator);
 }
 
 function handleSum(): void {
-  state.expression = eval(state.expression)
+  state.expression = eval(state.expression);
 }
 
 function handleReset(): void {
-  state.expression = ''
+  state.expression = '';
 }
 
 function calcDiff(bankNote: number) {
-  difference.value = bankNote - Number(state.expression)
+  difference.value = bankNote - Number(state.expression);
 }
 </script>
 
 <template>
   <h1>Rückgeld: {{ difference }}</h1>
 
-  <q-btn>Hallo</q-btn>
   <div class="structure">
     <div class="calculators">
       <div class="expression">
@@ -46,21 +45,43 @@ function calcDiff(bankNote: number) {
       </div>
 
       <div class="flex-row inline-flex itmes-center" style="margin-top: 20px">
-        <button style="width: 50px; margin-right: 20px" @click="handleReset">AC</button>
+        <button style="width: 50px; margin-right: 20px" @click="handleReset">
+          AC
+        </button>
         <button style="width: 50px" @click="handleSum()">=</button>
       </div>
     </div>
     <div class="bills">
       <div>
-        <img style="width: 15rem" @click="calcDiff(100)" src="../assets/hundertEur.jpg" />
-        <img style="width: 15rem" @click="calcDiff(50)" src="../assets/fünfzigEur.jpg" />
+        <img
+          style="width: 15rem"
+          @click="calcDiff(100)"
+          src="../assets/hundertEur.jpg"
+        />
+        <img
+          style="width: 15rem"
+          @click="calcDiff(50)"
+          src="../assets/fünfzigEur.jpg"
+        />
       </div>
       <div>
-        <img style="width: 15rem" @click="calcDiff(20)" src="../assets/zwantigEur.jpg" />
-        <img style="width: 15rem" @click="calcDiff(10)" src="../assets/zehnEur.jpg" />
+        <img
+          style="width: 15rem"
+          @click="calcDiff(20)"
+          src="../assets/zwantigEur.jpg"
+        />
+        <img
+          style="width: 15rem"
+          @click="calcDiff(10)"
+          src="../assets/zehnEur.jpg"
+        />
       </div>
       <div>
-        <img style="width: 15rem" @click="calcDiff(5)" src="../assets/fünfEur.jpg" />
+        <img
+          style="width: 15rem"
+          @click="calcDiff(5)"
+          src="../assets/fünfEur.jpg"
+        />
         <input />
       </div>
     </div>
