@@ -1,14 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { OPERATORS } from '@/constants'
+import { reactive, ref } from 'vue'
+import { MATH_OPERATORS, OPERATORS } from '@/constants'
 
 const MAIN_OPERATOR = 0
 
 const state = reactive({ number: '', expression: '', total: 0 })
+const difference = ref(0)
 
-function addOperation(operador: number | string): void {
-  state.expression = state.expression + String(operador)
+function addOperation(operator: number | string): void {
+  state.expression = state.expression + String(operator)
 }
 
 function handleSum(): void {
@@ -18,39 +19,72 @@ function handleSum(): void {
 function handleReset(): void {
   state.expression = ''
 }
+
+function calcDiff(bankNote: number) {
+  difference.value = bankNote - Number(state.expression)
+}
 </script>
 
 <template>
-  <div class="calculators">
-    <div class="expression">
-      {{ state.expression }}
-    </div>
-    <div class="operators">
-      <button
-        @click="addOperation(number)"
-        v-for="(number, index) in OPERATORS"
-        :class="number === MAIN_OPERATOR ? 'botao-maior' : 'botao'"
-        :key="index"
-        type="button"
-      >
-        {{ number }}
-      </button>
-    </div>
+  <h1>Rückgeld: {{ difference }}</h1>
 
-    <div class="flex-row inline-flex itmes-center" style="margin-top: 20px">
-      <button style="width: 50px; margin-right: 20px" @click="handleReset">AC</button>
-      <button style="width: 50px" @click="handleSum()">=</button>
+  <div class="structure">
+    <div class="calculators">
+      <div class="expression">
+        {{ state.expression }}
+      </div>
+      <div class="operators">
+        <button
+          @click="addOperation(number)"
+          v-for="(number, index) in OPERATORS"
+          :class="number === MAIN_OPERATOR ? 'botao-maior' : 'botao'"
+          :key="index"
+        >
+          {{ number }}
+        </button>
+      </div>
+
+      <div class="flex-row inline-flex itmes-center" style="margin-top: 20px">
+        <button style="width: 50px; margin-right: 20px" @click="handleReset">AC</button>
+        <button style="width: 50px" @click="handleSum()">=</button>
+      </div>
+    </div>
+    <div class="bills">
+      <div>
+        <img style="width: 15rem" @click="calcDiff(100)" src="../assets/hundertEur.jpg" />
+        <img style="width: 15rem" @click="calcDiff(50)" src="../assets/fünfzigEur.jpg" />
+      </div>
+      <div>
+        <img style="width: 15rem" @click="calcDiff(20)" src="../assets/zwantigEur.jpg" />
+        <img style="width: 15rem" @click="calcDiff(10)" src="../assets/zehnEur.jpg" />
+      </div>
+      <div>
+        <img style="width: 15rem" @click="calcDiff(5)" src="../assets/fünfEur.jpg" />
+        <input />
+      </div>
     </div>
   </div>
 </template>
 
 <style>
+.structure {
+  display: flex;
+  flex-direction: row;
+}
 .calculators {
   height: 100vh;
+  width: 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  outline: 2px;
+}
+
+.bills {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .expression {
@@ -62,8 +96,8 @@ function handleReset(): void {
   text-align: right;
   padding: 6px;
   border-radius: 8px;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: antiquewhite;
+  color: black;
 }
 
 .operators {
@@ -72,6 +106,8 @@ function handleReset(): void {
   gap: 8px;
   max-width: 400px;
   width: 100%;
+  max-height: 400px;
+  height: 100%;
 }
 
 .botao,

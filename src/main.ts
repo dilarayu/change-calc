@@ -1,4 +1,5 @@
 import './assets/main.css'
+import '@quasar/extras/mdi-v6/mdi-v6.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
