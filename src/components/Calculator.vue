@@ -28,28 +28,28 @@ function calcDiff(bankNote: number) {
 <template>
   <h1>Rückgeld: {{ difference }}</h1>
 
-  <q-btn>Hallo</q-btn>
   <div class="structure">
     <div class="calculators">
       <div class="expression">
         {{ state.expression }}
       </div>
       <div class="operators">
-        <button
+        <q-btn
+          round
           @click="addOperation(number)"
           v-for="(number, index) in OPERATORS"
           :class="number === MAIN_OPERATOR ? 'botao-maior' : 'botao'"
           :key="index"
         >
           {{ number }}
-        </button>
+        </q-btn>
       </div>
 
       <div class="flex-row inline-flex itmes-center" style="margin-top: 20px">
-        <button style="width: 50px; margin-right: 20px" @click="handleReset">
+        <q-btn style="width: 50px; margin-right: 20px" @click="handleReset">
           AC
-        </button>
-        <button style="width: 50px" @click="handleSum()">=</button>
+        </q-btn>
+        <q-btn style="width: 50px" @click="handleSum()">=</q-btn>
       </div>
     </div>
     <div class="bills">
